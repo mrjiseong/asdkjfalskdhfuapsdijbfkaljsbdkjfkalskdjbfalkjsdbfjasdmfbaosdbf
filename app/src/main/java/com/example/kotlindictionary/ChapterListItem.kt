@@ -19,9 +19,11 @@ import androidx.navigation.NavController
 import com.example.kotlindictionary.coustomtheme.CustomThemeManager
 import com.example.kotlindictionary.data.Chapter
 
-
 @Composable
-fun ChapterListItem(chapter: Chapter, navigateToProfile: (Chapter) -> Unit) {
+fun ChapterListItem(
+    chapter: Chapter,
+    navController: NavController
+) {
     Card(
         modifier = Modifier
             .padding(horizontal = 50.dp, vertical = 5.dp)
@@ -31,7 +33,7 @@ fun ChapterListItem(chapter: Chapter, navigateToProfile: (Chapter) -> Unit) {
         shape = RoundedCornerShape(corner = CornerSize(20.dp))
     ) {
         Row(
-            Modifier.clickable { navigateToProfile(chapter) }
+            Modifier.clickable { navController.navigate("${chapter.route}") }
         ) {
             Column(
                 modifier = Modifier
@@ -39,7 +41,7 @@ fun ChapterListItem(chapter: Chapter, navigateToProfile: (Chapter) -> Unit) {
                     .fillMaxWidth()
                     .align(Alignment.CenterVertically)
             ) {
-                Text(text = chapter.title, style = typography.h6)
+                Text(text = "${chapter.title}", style = typography.h6)
                 Text(text = "클릭하여 보기", style = typography.caption)
             }
         }

@@ -2,10 +2,10 @@ package com.example.kotlindictionary.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,8 +17,35 @@ import com.example.kotlindictionary.coustomtheme.CustomThemeManager
 @Composable
 fun Setting(navController: NavController) {
 
+
     Surface(color = CustomThemeManager.colors.backgroundColor) {
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            IconButton(
+                modifier = Modifier
+                    .then(
+                        Modifier
+                            .size(50.dp)
+                    )
+                    .fillMaxWidth(),
+                onClick = { navController.popBackStack() },
+            ) {
+                Icon(
+                    Icons.Filled.ArrowBack,
+                    "contentDescription",
+                    tint = CustomThemeManager.colors.textColor
+                )
+            }
+        }
+
+
+
         Box(modifier = Modifier.fillMaxSize()) {
+
+
             Column(
                 modifier = Modifier
                     .align(Alignment.Center)

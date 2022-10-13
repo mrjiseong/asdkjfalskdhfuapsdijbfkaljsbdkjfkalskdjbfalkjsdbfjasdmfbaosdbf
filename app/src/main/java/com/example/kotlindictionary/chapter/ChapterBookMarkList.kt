@@ -11,7 +11,7 @@ import com.example.kotlindictionary.ChapterListItem
 import com.example.kotlindictionary.data.DataProvider
 
 @Composable
-fun ChapterList(navController: NavController) {
+fun ChapterBookMarkList(navController: NavController) {
     val chapters = remember { DataProvider.chapterList }
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)

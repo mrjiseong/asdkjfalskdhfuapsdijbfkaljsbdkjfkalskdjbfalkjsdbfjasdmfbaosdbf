@@ -36,7 +36,6 @@ fun MyObject(
         checked = checkedState.value,
         onCheckedChange = {
             checkedState.value = !checkedState.value
-
                           },
         modifier = Modifier.padding(10.dp)) {
 

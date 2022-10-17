@@ -1,8 +1,6 @@
 package com.example.kotlindictionary.data
 
-data class Chapter(
-    val id: Int,
+class Chapter(
     val title: String,
-    val route: String,
-    val bookmark: Boolean
+    val route: String
 )

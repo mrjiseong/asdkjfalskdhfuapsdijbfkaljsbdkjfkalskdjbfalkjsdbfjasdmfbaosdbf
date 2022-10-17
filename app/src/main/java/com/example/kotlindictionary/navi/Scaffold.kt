@@ -6,9 +6,11 @@ import androidx.compose.material.rememberDrawerState
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.kotlindictionary.DrawerMenu
+import com.example.kotlindictionary.chapter.ChapterBookMarkList
 import com.example.kotlindictionary.data.Chapter
 
 //TopBar

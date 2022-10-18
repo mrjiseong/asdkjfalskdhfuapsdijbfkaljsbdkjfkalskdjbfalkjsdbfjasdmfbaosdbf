@@ -1,11 +1,16 @@
 package com.example.kotlindictionary.chapter
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.*
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.runtime.*
@@ -16,9 +21,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.kotlindictionary.CustomToggleButton
+import com.example.kotlindictionary.MainActivity
+import com.example.kotlindictionary.coustomtheme.CustomThemeManager
 import com.example.kotlindictionary.data.Chapter
 import com.example.kotlindictionary.data.DataProvider
+import com.example.kotlindictionary.data.DataProvider.chapter
+import com.example.kotlindictionary.data.DataProvider.chapterList
 import com.example.kotlindictionary.data.ListRepository
+import com.example.kotlindictionary.data.ListRepository.Companion.data
 import kotlin.random.Random
 
 // 객체
@@ -27,51 +38,25 @@ import kotlin.random.Random
 fun MyObject(
     navController: NavController
 ) {
-    val checkedState = remember { mutableStateOf(false) }
-
-    val holder = remember {
-        ListRepository().getAllData().toMutableStateList()
-    }
-    val key2 = remember {
-        mutableStateOf(1)
-    }
-
-    IconToggleButton(
-        checked = checkedState.value,
-        onCheckedChange = {
-            checkedState.value = !checkedState.value
-            holder.add(Chapter("객체","경로"))
-            key2.value++
-
-            println(ListRepository().getAllData().size)
-                          },
-        modifier = Modifier.padding(10.dp)) {
-
-
-        val transition = updateTransition(checkedState.value)
-        val tint by transition.animateColor(label = "iconColor") { isChecked ->
-            if (isChecked) Color.Red else Color.Black
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
+        IconButton(
+            modifier = Modifier
+                .then(
+                    Modifier
+                        .size(50.dp)
+                )
+                .fillMaxWidth(),
+            onClick = { navController.popBackStack() },
+        ) {
+            Icon(
+                Icons.Filled.ArrowBack,
+                "contentDescription",
+                tint = CustomThemeManager.colors.textColor
+            )
         }
-        val size by transition.animateDp(
-            transitionSpec = {
-                if (false isTransitioningTo true) {
-                    keyframes {
-                        durationMillis = 250
-                        30.dp at 0 with LinearOutSlowInEasing // for 0-15 ms
-
-                    }
-                } else {
-                    spring(stiffness = Spring.StiffnessVeryLow)
-                }
-            },
-            label = "Size"
-        ) { 30.dp }
-        Icon(
-            imageVector = if (checkedState.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
-            contentDescription = "Icon",
-            tint = tint,
-            modifier = Modifier.size(size)
-        )
     }
 
     Column(
@@ -85,5 +70,47 @@ fun MyObject(
             fontSize = 100.sp,
             fontWeight = FontWeight.ExtraBold
         )
+
+        //val checkedState = remember { mutableStateOf(ListRepository().bookMark()) }
+        var checkedState = remember { mutableStateOf(false) }
+        IconToggleButton(
+            checked = checkedState.value,
+            onCheckedChange = {
+
+                checkedState.value = !checkedState.value
+                ListRepository.data.add(Chapter("객체", "destinationObject",true))
+                println("즐겨찾기: " + ListRepository.data.size + "개")
+            },
+            modifier = Modifier.padding(10.dp)
+        ) {
+            val transition = updateTransition(checkedState.value)
+            val tint by transition.animateColor(label = "iconColor") { isChecked ->
+                if (isChecked) Color.Red else CustomThemeManager.colors.textColor
+            }
+            val size by transition.animateDp(
+                transitionSpec = {
+                    if (false isTransitioningTo true) {
+                        keyframes {
+                            durationMillis = 250
+                            30.dp at 0 with LinearOutSlowInEasing
+                            durationMillis = 250
+                            30.dp at 0 with LinearOutSlowInEasing
+                            35.dp at 15 with FastOutLinearInEasing
+                            40.dp at 75
+                            35.dp at 150
+                        }
+                    } else {
+                        spring(stiffness = Spring.StiffnessVeryLow)
+                    }
+                },
+                label = "Size"
+            ) { 30.dp }
+            Icon(
+                imageVector = if (checkedState.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+                contentDescription = "Icon",
+                tint = tint,
+                modifier = Modifier.size(size)
+            )
+        }
     }
 }

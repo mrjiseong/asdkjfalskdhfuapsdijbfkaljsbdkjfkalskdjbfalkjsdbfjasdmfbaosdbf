@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.kotlindictionary.CustomToggleButton
 import com.example.kotlindictionary.coustomtheme.CustomTheme
 import com.example.kotlindictionary.coustomtheme.CustomThemeManager
 
@@ -50,6 +51,7 @@ fun Setting(navController: NavController) {
                 modifier = Modifier
                     .align(Alignment.Center)
             ) {
+                CustomToggleButton()
                 Button(
                     onClick = {
                         CustomThemeManager.customTheme =

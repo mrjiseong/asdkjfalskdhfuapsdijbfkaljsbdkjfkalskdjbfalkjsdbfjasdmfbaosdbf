@@ -2,8 +2,8 @@ package com.example.kotlindictionary.data
 
 class ListRepository {
     companion object{
-        var data = mutableListOf(
-        Chapter("임시 값","경로")
+        var data:MutableList<Chapter> = mutableListOf(
+
         )
     }
 
@@ -17,5 +17,9 @@ class ListRepository {
 
     fun removeData(a:Chapter){
         data.remove(a)
+    }
+
+    fun bookMark(a:Chapter){
+        a.bookMark || true
     }
 }

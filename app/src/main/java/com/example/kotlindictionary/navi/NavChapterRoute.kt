@@ -5,6 +5,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.kotlindictionary.chapter.*
+import com.example.kotlindictionary.data.Chapter
+import com.example.kotlindictionary.data.DataProvider.chapter
+import com.example.kotlindictionary.data.ListRepository
 import com.example.kotlindictionary.dictionaryclass.NavigationItem
 import com.example.kotlindictionary.screen.DestinationA
 import com.example.kotlindictionary.screen.JetpackCompose
@@ -27,15 +30,15 @@ fun Navigation(navController: NavHostController) {
         // 기본 스타트 메뉴
         composable("destinationB") { DestinationB(navController = navController) }
         // 챕터 1. 객체
-        composable("destinationObject") { MyObject(navController = navController) }
+        composable("destinationObject") { MyObject(navController = navController, chapter = chapter) }
         // 챕터 2. 문장 제어처리
-        composable("destinationControl") { MyControl(navController = navController) }
+        composable("destinationControl") { MyControl(navController = navController, chapter = chapter) }
         // 챕터 3. 함수
-        composable("destinationFunction") { MyFunction(navController = navController) }
+        composable("destinationFunction") { MyFunction(navController = navController, chapter = chapter) }
         // 챕터 4. 클래스
         composable("destinationClass") { MyClass(navController = navController) }
         // 챕터 5. 내장 자료형
-        composable("destinationInType") { MyInType(navController = navController) }
+        composable("destinationInType") { MyInType(navController = navController, chapter = chapter) }
         // 챕터 6. 클래스 관계 등 추가사항
         composable("destinationClassAdd") { MyClassAdd(navController = navController) }
         // 챕터 7. 컬렉션
@@ -43,14 +46,14 @@ fun Navigation(navController: NavHostController) {
         // 챕터 8. 추상 클레스, 인터페이스
         composable("destinationAbstractInterface") { MyAbstractInterface(navController = navController) }
         // 챕터 9. 함수 추가사항
-        composable("destinationFunctionAdd") { MyFunctionAdd(navController = navController) }
+        composable("destinationFunctionAdd") { MyFunctionAdd(navController = navController, chapter = chapter) }
         // 챕터 10. 위임, 확장
-        composable("destinationMandateExpansion") { MyMandateExpansion(navController = navController) }
+        composable("destinationMandateExpansion") { MyMandateExpansion(navController = navController, chapter = chapter) }
         // 챕터 11. 제네릭
-        composable("destinationGeneric") { MyGeneric(navController = navController) }
+        composable("destinationGeneric") { MyGeneric(navController = navController, chapter = chapter) }
         // 챕터 12. 파일 입출력과 스레드
-        composable("destinationThread") { MyThread(navController = navController) }
+        composable("destinationThread") { MyThread(navController = navController, chapter = chapter) }
         // 챕터 13. 코루틴
-        composable("destinationCoroutine") { MyCoroutine(navController = navController) }
+        composable("destinationCoroutine") { MyCoroutine(navController = navController, chapter = chapter) }
     }
 }

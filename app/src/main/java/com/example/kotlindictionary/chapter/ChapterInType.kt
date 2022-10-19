@@ -27,7 +27,8 @@ import com.example.kotlindictionary.data.ListRepository
 // 내장자료형
 @SuppressLint("UnusedTransitionTargetStateParameter")
 @Composable
-fun MyInType(navController: NavController) {
+fun MyInType(navController: NavController,
+             chapter: Chapter) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -60,47 +61,5 @@ fun MyInType(navController: NavController) {
             fontSize = 100.sp,
             fontWeight = FontWeight.ExtraBold
         )
-
-        val checkedState = remember { mutableStateOf(false) }
-
-        IconToggleButton(
-            checked = checkedState.value,
-            onCheckedChange = {
-                checkedState.value
-                checkedState.value = !checkedState.value
-                ListRepository.data.add(Chapter("내장 자료형", "destinationInType",false))
-                println("즐겨찾기: " + ListRepository.data.size + "개")
-            },
-            modifier = Modifier.padding(10.dp)
-        ) {
-            val transition = updateTransition(checkedState.value)
-            val tint by transition.animateColor(label = "iconColor") { isChecked ->
-                if (isChecked) Color.Red else CustomThemeManager.colors.textColor
-            }
-            val size by transition.animateDp(
-                transitionSpec = {
-                    if (false isTransitioningTo true) {
-                        keyframes {
-                            durationMillis = 250
-                            30.dp at 0 with LinearOutSlowInEasing // for 0-15 ms
-                            durationMillis = 250
-                            30.dp at 0 with LinearOutSlowInEasing // for 0-15 ms
-                            35.dp at 15 with FastOutLinearInEasing // for 15-75 ms
-                            40.dp at 75 // ms
-                            35.dp at 150 // ms
-                        }
-                    } else {
-                        spring(stiffness = Spring.StiffnessVeryLow)
-                    }
-                },
-                label = "Size"
-            ) { 30.dp }
-            Icon(
-                imageVector = if (checkedState.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
-                contentDescription = "Icon",
-                tint = tint,
-                modifier = Modifier.size(size)
-            )
-        }
     }
 }

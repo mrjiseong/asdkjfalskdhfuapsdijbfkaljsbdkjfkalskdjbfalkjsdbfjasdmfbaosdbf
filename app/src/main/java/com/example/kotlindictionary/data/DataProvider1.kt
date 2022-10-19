@@ -1,8 +1,8 @@
 package com.example.kotlindictionary.data
 
 class ListRepository {
-    companion object{
-        var data:MutableList<Chapter> = mutableListOf(
+    companion object {
+        var data: MutableList<Chapter> = mutableListOf(
 
         )
     }
@@ -11,15 +11,8 @@ class ListRepository {
         return data
     }
 
-    fun addData(a:Chapter){
-        data.add(a)
-    }
-
-    fun removeData(a:Chapter){
-        data.remove(a)
-    }
-
-    fun bookMark(a:Chapter){
-        a.bookMark || true
+    fun bookMarkButton(a: Chapter) {
+        a.id = 1
+        a.bookMark = false
     }
 }

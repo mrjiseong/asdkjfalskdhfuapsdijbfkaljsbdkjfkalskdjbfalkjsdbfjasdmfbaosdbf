@@ -1,13 +1,9 @@
 package com.example.kotlindictionary.chapter
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.widget.Toast
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.*
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -21,22 +17,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.kotlindictionary.CustomToggleButton
-import com.example.kotlindictionary.MainActivity
 import com.example.kotlindictionary.coustomtheme.CustomThemeManager
 import com.example.kotlindictionary.data.Chapter
-import com.example.kotlindictionary.data.DataProvider
-import com.example.kotlindictionary.data.DataProvider.chapter
-import com.example.kotlindictionary.data.DataProvider.chapterList
 import com.example.kotlindictionary.data.ListRepository
 import com.example.kotlindictionary.data.ListRepository.Companion.data
-import kotlin.random.Random
+
 
 // 객체
 @SuppressLint("UnusedTransitionTargetStateParameter")
 @Composable
 fun MyObject(
-    navController: NavController
+    navController: NavController,
+    chapter: Chapter
 ) {
     Column(
         modifier = Modifier
@@ -70,16 +62,30 @@ fun MyObject(
             fontSize = 100.sp,
             fontWeight = FontWeight.ExtraBold
         )
-
-        //val checkedState = remember { mutableStateOf(ListRepository().bookMark()) }
-        var checkedState = remember { mutableStateOf(false) }
+        val checkedState = remember { mutableStateOf(chapter.bookMark) }
         IconToggleButton(
             checked = checkedState.value,
             onCheckedChange = {
+//            chapter.bookMark = !chapter.bookMark
+//            checkedState.value = !checkedState.value
+//            data.add(Chapter("객체", "destinationObject", true))
+//            println("북마크: " + ListRepository.data.size + "개")
+//            data.removeAll(arrayOf(Chapter("객체","destinationObject",true)))
 
-                checkedState.value = !checkedState.value
-                ListRepository.data.add(Chapter("객체", "destinationObject",true))
-                println("즐겨찾기: " + ListRepository.data.size + "개")
+                if (
+                    ((!chapter.bookMark).also {
+                        chapter.bookMark = it
+                    }).also { (!checkedState.value).also { checkedState.value = it } }
+                ) {
+                    //북마크 버튼이 체크가 됐을때
+                    data.add(Chapter(1,"객체", "destinationObject", true))
+                    println("북마크 수: " + data.size)
+                } else {
+                    //북마크 버튼이 체크가 해제 됐을때
+                    data.removeAt(chapter.id)
+                    println("북마크 수: " + data.size)
+                }
+
             },
             modifier = Modifier.padding(10.dp)
         ) {

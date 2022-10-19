@@ -27,7 +27,7 @@ import com.example.kotlindictionary.data.ListRepository
 // 문장 제어처리
 @SuppressLint("UnusedTransitionTargetStateParameter")
 @Composable
-fun MyControl(navController: NavController) {
+fun MyControl(navController: NavController,chapter: Chapter) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -60,20 +60,34 @@ fun MyControl(navController: NavController) {
             fontSize = 100.sp,
             fontWeight = FontWeight.ExtraBold
         )
-
-        val checkedState = remember { mutableStateOf(false) }
-
+        val checkedState1 = remember { mutableStateOf(chapter.bookMark) }
         IconToggleButton(
-            checked = checkedState.value,
+            checked = checkedState1.value,
             onCheckedChange = {
-                checkedState.value
-                checkedState.value = !checkedState.value
-                ListRepository.data.add(Chapter("문장 제어처리", "destinationControl",true))
-                println("즐겨찾기: " + ListRepository.data.size + "개")
+//            chapter.bookMark = !chapter.bookMark
+//            checkedState.value = !checkedState.value
+//            data.add(Chapter("객체", "destinationObject", true))
+//            println("북마크: " + ListRepository.data.size + "개")
+//            data.removeAll(arrayOf(Chapter("객체","destinationObject",true)))
+
+                if (
+                    ((!chapter.bookMark).also {
+                        chapter.bookMark = it
+                    }).also { (!checkedState1.value).also { checkedState1.value = it } }
+                ) {
+                    //북마크 버튼이 체크가 됐을때
+                    ListRepository.data.add(Chapter(2,"문장 제어처리", "destinationControl", true))
+                    println("북마크 수: " + ListRepository.data.size)
+                } else {
+                    //북마크 버튼이 체크가 해제 됐을때
+                    ListRepository.data.removeAt(chapter.id)
+                    println("북마크 수: " + ListRepository.data.size)
+                }
+
             },
             modifier = Modifier.padding(10.dp)
         ) {
-            val transition = updateTransition(checkedState.value)
+            val transition = updateTransition(checkedState1.value)
             val tint by transition.animateColor(label = "iconColor") { isChecked ->
                 if (isChecked) Color.Red else CustomThemeManager.colors.textColor
             }
@@ -82,12 +96,12 @@ fun MyControl(navController: NavController) {
                     if (false isTransitioningTo true) {
                         keyframes {
                             durationMillis = 250
-                            30.dp at 0 with LinearOutSlowInEasing // for 0-15 ms
+                            30.dp at 0 with LinearOutSlowInEasing
                             durationMillis = 250
-                            30.dp at 0 with LinearOutSlowInEasing // for 0-15 ms
-                            35.dp at 15 with FastOutLinearInEasing // for 15-75 ms
-                            40.dp at 75 // ms
-                            35.dp at 150 // ms
+                            30.dp at 0 with LinearOutSlowInEasing
+                            35.dp at 15 with FastOutLinearInEasing
+                            40.dp at 75
+                            35.dp at 150
                         }
                     } else {
                         spring(stiffness = Spring.StiffnessVeryLow)
@@ -96,7 +110,7 @@ fun MyControl(navController: NavController) {
                 label = "Size"
             ) { 30.dp }
             Icon(
-                imageVector = if (checkedState.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+                imageVector = if (checkedState1.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
                 contentDescription = "Icon",
                 tint = tint,
                 modifier = Modifier.size(size)

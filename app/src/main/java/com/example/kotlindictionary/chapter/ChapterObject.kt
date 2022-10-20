@@ -20,7 +20,6 @@ import androidx.navigation.NavController
 import com.example.kotlindictionary.coustomtheme.CustomThemeManager
 import com.example.kotlindictionary.data.Chapter
 import com.example.kotlindictionary.data.ListRepository
-import com.example.kotlindictionary.data.ListRepository.Companion.data
 
 
 // 객체
@@ -28,7 +27,7 @@ import com.example.kotlindictionary.data.ListRepository.Companion.data
 @Composable
 fun MyObject(
     navController: NavController,
-    chapter: Chapter
+    chapterList: Chapter
 ) {
     Column(
         modifier = Modifier
@@ -62,29 +61,25 @@ fun MyObject(
             fontSize = 100.sp,
             fontWeight = FontWeight.ExtraBold
         )
-        val checkedState = remember { mutableStateOf(chapter.bookMark) }
+        val checkedState = remember { mutableStateOf(chapterList.bookMark) }
         IconToggleButton(
             checked = checkedState.value,
             onCheckedChange = {
-//            chapter.bookMark = !chapter.bookMark
-//            checkedState.value = !checkedState.value
-//            data.add(Chapter("객체", "destinationObject", true))
-//            println("북마크: " + ListRepository.data.size + "개")
-//            data.removeAll(arrayOf(Chapter("객체","destinationObject",true)))
 
-                if (
-                    ((!chapter.bookMark).also {
-                        chapter.bookMark = it
-                    }).also { (!checkedState.value).also { checkedState.value = it } }
-                ) {
-                    //북마크 버튼이 체크가 됐을때
-                    data.add(Chapter(1,"객체", "destinationObject", true))
-                    println("북마크 수: " + data.size)
-                } else {
-                    //북마크 버튼이 체크가 해제 됐을때
-                    data.removeAt(chapter.id)
-                    println("북마크 수: " + data.size)
-                }
+
+//                if (
+//                    ((!chapterList.bookMark).also {
+//                        chapterList.bookMark = it
+//                    }).also { (!checkedState.value).also { checkedState.value = it } }
+//                ) {
+//                    //북마크 버튼이 체크가 됐을때
+//                    ListRepository.data.add(Chapter(1, "객체", "destinationObject", true, 0))
+//                    println("북마크 수: " + ListRepository.data.size)
+//                } else {
+//                    //북마크 버튼이 체크가 해제 됐을때
+//                    ListRepository.data.removeAt(chapterList.remove)
+//                    println("북마크 수: " + ListRepository.data.size)
+//                }
 
             },
             modifier = Modifier.padding(10.dp)

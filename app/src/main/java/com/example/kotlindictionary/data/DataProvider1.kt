@@ -10,9 +10,4 @@ class ListRepository {
     fun getAllData(): MutableList<Chapter> {
         return data
     }
-
-    fun bookMarkButton(a: Chapter) {
-        a.id = 1
-        a.bookMark = false
-    }
 }

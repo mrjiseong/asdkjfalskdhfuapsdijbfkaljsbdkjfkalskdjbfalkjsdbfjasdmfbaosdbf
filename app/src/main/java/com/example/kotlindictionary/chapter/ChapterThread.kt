@@ -27,8 +27,7 @@ import com.example.kotlindictionary.data.ListRepository
 // 파일 입출력과 스레드
 @SuppressLint("UnusedTransitionTargetStateParameter")
 @Composable
-fun MyThread(navController: NavController,
-             chapter: Chapter) {
+fun MyThread(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxWidth()

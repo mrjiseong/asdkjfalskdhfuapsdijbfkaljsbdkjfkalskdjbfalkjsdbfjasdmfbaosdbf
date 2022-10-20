@@ -4,5 +4,6 @@ class Chapter(
     var id: Int,
     val title: String,
     val route: String,
-    var bookMark: Boolean
+    var bookMark: Boolean,
+    val remove: Int
 )

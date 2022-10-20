@@ -27,7 +27,7 @@ import com.example.kotlindictionary.data.ListRepository
 // 문장 제어처리
 @SuppressLint("UnusedTransitionTargetStateParameter")
 @Composable
-fun MyControl(navController: NavController,chapter: Chapter) {
+fun MyControl(navController: NavController, chapterList: Chapter) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -60,34 +60,28 @@ fun MyControl(navController: NavController,chapter: Chapter) {
             fontSize = 100.sp,
             fontWeight = FontWeight.ExtraBold
         )
-        val checkedState1 = remember { mutableStateOf(chapter.bookMark) }
+        val checkedState = remember { mutableStateOf(chapterList.bookMark) }
         IconToggleButton(
-            checked = checkedState1.value,
+            checked = checkedState.value,
             onCheckedChange = {
-//            chapter.bookMark = !chapter.bookMark
-//            checkedState.value = !checkedState.value
-//            data.add(Chapter("객체", "destinationObject", true))
-//            println("북마크: " + ListRepository.data.size + "개")
-//            data.removeAll(arrayOf(Chapter("객체","destinationObject",true)))
-
                 if (
-                    ((!chapter.bookMark).also {
-                        chapter.bookMark = it
-                    }).also { (!checkedState1.value).also { checkedState1.value = it } }
+                    ((!chapterList.bookMark).also {
+                        chapterList.bookMark = it
+                    }).also { (!checkedState.value).also { checkedState.value = it } }
                 ) {
                     //북마크 버튼이 체크가 됐을때
-                    ListRepository.data.add(Chapter(2,"문장 제어처리", "destinationControl", true))
+                    ListRepository.data.add(Chapter(2, "문장 제어처리", "destinationControl", true, 0))
                     println("북마크 수: " + ListRepository.data.size)
                 } else {
                     //북마크 버튼이 체크가 해제 됐을때
-                    ListRepository.data.removeAt(chapter.id)
+                    ListRepository.data.removeAt(chapterList.remove)
                     println("북마크 수: " + ListRepository.data.size)
                 }
 
             },
             modifier = Modifier.padding(10.dp)
         ) {
-            val transition = updateTransition(checkedState1.value)
+            val transition = updateTransition(checkedState.value)
             val tint by transition.animateColor(label = "iconColor") { isChecked ->
                 if (isChecked) Color.Red else CustomThemeManager.colors.textColor
             }
@@ -110,7 +104,7 @@ fun MyControl(navController: NavController,chapter: Chapter) {
                 label = "Size"
             ) { 30.dp }
             Icon(
-                imageVector = if (checkedState1.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+                imageVector = if (checkedState.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
                 contentDescription = "Icon",
                 tint = tint,
                 modifier = Modifier.size(size)

@@ -53,5 +53,5 @@ fun ChapterListItem(
 @Preview
 @Composable
 fun ChapterListItemPreview(){
-    ChapterListItem(chapter = Chapter(1,"","",false), navController = rememberNavController())
+    ChapterListItem(chapter = Chapter(1,"","",false,0), navController = rememberNavController())
 }

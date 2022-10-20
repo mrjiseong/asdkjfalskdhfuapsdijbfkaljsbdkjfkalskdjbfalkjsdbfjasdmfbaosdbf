@@ -27,8 +27,7 @@ import com.example.kotlindictionary.data.ListRepository
 //제네릭
 @SuppressLint("UnusedTransitionTargetStateParameter")
 @Composable
-fun MyGeneric(navController: NavController,
-              chapter: Chapter) {
+fun MyGeneric(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxWidth()

@@ -38,7 +38,7 @@ fun ToggleButton(chapter: Chapter) {
                 }).also { (!checkedState.value).also { checkedState.value = it } }
             ) {
                 //북마크 버튼이 체크가 됐을때
-                data.add(Chapter(1,"객체", "destinationObject", true))
+                data.add(Chapter(1,"객체", "destinationObject", true,0))
                 println("북마크" + data.size)
             } else {
                 //북마크 버튼이 체크가 해제 됐을때

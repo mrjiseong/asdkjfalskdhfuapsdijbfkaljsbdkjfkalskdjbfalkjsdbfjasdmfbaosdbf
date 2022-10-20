@@ -43,7 +43,7 @@ fun CustomToggleButton() {
                 )
                 .clickable {
                     isToggle = !isToggle
-                    data.add(Chapter(1,"객체", "destinationObject",true))
+                    data.add(Chapter(1,"객체", "destinationObject",true,0))
                     println(ListRepository.data.size)
 
                 }, contentAlignment = Alignment.Center
